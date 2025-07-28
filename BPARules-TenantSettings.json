@@ -1,0 +1,30 @@
+[
+  {
+    "ID": "SAMPLE_RULE",
+    "Name": "Sample rule",
+    "Category": "Samples",
+    "Description": "Sample of a rule written as a Power Query expression.",
+    "Severity": 1,
+    "Scope": "Sample",
+    "Expression": "(let items = tenantSettings[settingName] in List.IsEmpty(items) = false)"
+  },
+  {
+    "ID": "PUBLISHTOWEB_DISABLED",
+    "Name": "Publish To Web is disabled",
+    "Category": "Export and sharing settings",
+    "Description": "Publish To Web should not be enabled to avoid publishing sensitive content.",
+    "Severity": 1,
+    "Scope": "PublishToWeb",
+    "Expression": "(tenantSettings{[settingName = \"PublishToWeb\"]}[enabled] = false)"
+  },
+  {
+    "ID": "PUBLISHTOWEB_ENABLED_SECURITYGROUPS",
+    "Name": "Publish To Web is enabled for specified security groups only",
+    "Category": "Export and sharing settings",
+    "Description": "Publish To Web should only be allowed for specified security groups to reduce risk of publishing sensitive content.",
+    "Severity": 2,
+    "Scope": "PublishToWeb",
+    "Expression": "(let enabledSecurityGroups = tenantSettings{[settingName = \"PublishToWeb\"]}[enabledSecurityGroups]
+    in try List.Count(enabledSecurityGroups) otherwise 0 > 0) and (tenantSettings{[settingName = \"PublishToWeb\"]}[enabled] = true)"
+  }
+]
